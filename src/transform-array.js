@@ -15,30 +15,36 @@ const { NotImplementedError } = require('../extensions/index.js');
  */
 function transform(arr) {
   if(Array.isArray(arr) !== true) throw new Error("'arr' parameter must be an instance of the Array!");
+
   const array = [].concat(arr);
-  
   let result;
+
   if(array[0] === '--discard-prev' || array[0] === '--double-prev') {
     result = array.splice(array[0], 1);
   }
   if(array[array.length - 1] === '--discard-next' || array[array.length - 1] === '--double-next') {
     result = array.splice(array[array.length - 2], 1);
   } 
+  
   for(let i = 0; i < array.length; i++) {
+    
     if(array[i] === '--discard-next') {
-      result = array.splice(array[i - 1], 2);
+      array[i] = null;
+      i++;
+      array[i] = null;
     } 
     if(array[i] === '--discard-prev') {
-      result = array.splice(array[i - 2], 2);
+      array[i] = null;
+      array[i - 1] = null;
     } 
     if(array[i] === '--double-next') {
-      result = array.splice(array[i-1], 1, array[i + 1]);
+      array[i] = array[i + 1];
     }
     if(array[i] === '--double-prev') {
-      result = array.splice(array[i-1], 1, array[i - 1]);
+      array[i] = array[i - 1];
     } 
   }
-  return array;
+  return array.filter(el => el !== null);
   
 }
 
