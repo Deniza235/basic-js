@@ -19,9 +19,20 @@ function repeater(str, options) {
   let result = [];
   let addition = (options.addition === undefined) ? '' : options.addition + '';
   let separator = (options.separator === undefined) ? '+' : options.separator + '';
-  let addSeparator = (options.additionSeparator === undefined) ? '|' : options.additionSeparator + ''; 
+  let addSeparator = (options.additionSeparator === undefined) ? '|' : options.additionSeparator + '';
+  let repeat = (options.repeatTimes === undefined) ? 1 : options.repeatTimes;
+  let addRepeat = (options.additionRepeatTimes === undefined)? 1 : options.additionRepeatTimes;
 
+  for(let i = 0; i < addRepeat; i++) {
+    result.push(addition);
+  }
+  result = result.join(addSeparator);
   
+  let currentResult = []
+  for(let k = 0; k < repeat; k++) {
+    currentResult.push(str + result);
+  }
+  return currentResult.join(separator);
 }
 
 module.exports = {
