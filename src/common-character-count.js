@@ -18,7 +18,7 @@ function getCommonCharacterCount(s1, s2) {
     let index = arr.findIndex(el => el === str);
     if(index >= 0) {
       resultSumElements++;
-    arr.splice(index, 1);
+      arr.splice(index, 1);
     }
   }
   return resultSumElements;
